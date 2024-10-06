@@ -9,7 +9,6 @@ function Header() {
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
-    console.log(isMenuOpen)
   };
   return (
     <div className={styles.headerbox}>

@@ -1,13 +1,14 @@
 import styles from "../styles/home.module.css";
 import Header from "../components/Header/header.js";
 import Footer from "../components/Footer/footer.js";
+import Filter from "../components/Filter/filter.js";
 
 function Home() {
   return (
     <>
       <Header />
       <div className={styles.body}>
-        <div className={styles.filter}>
+        <Filter>
           <div className={styles.main}>
             <h1>Welcome to PokerRank!</h1>
             <p>
@@ -19,7 +20,7 @@ function Home() {
               <button>Login</button>
             </div>
           </div>
-        </div>
+        </Filter>
       </div>
       <Footer/>
     </>
