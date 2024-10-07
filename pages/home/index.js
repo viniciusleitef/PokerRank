@@ -1,5 +1,12 @@
-function home () {
-  return <h1>Hello World! Home page</h1>;
+import styles from "../../styles/privhome.module.css";
+import SideMenu from "../../components/SideMenu/sideMenu.js";
+
+function home() {
+  return (
+    <>
+      <SideMenu/>
+    </>
+  );
 }
 
 export default home;

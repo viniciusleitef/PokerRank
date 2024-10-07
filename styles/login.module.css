@@ -1,6 +1,6 @@
 .loginFormSection{
   height: calc(100vh - 80px);
-  background-image: url("../public/img/poker.jpg");
+  background-image: url("../public/images/poker.jpg");
   background-position: center; 
   background-repeat: no-repeat; 
   background-size: cover; 
@@ -40,7 +40,7 @@
 }
 
 .form input:hover{
-  border-bottom: 1px solid rgb(236, 21, 243);
+  border-bottom: 1px solid C;
 }
 
 .form input:focus {
