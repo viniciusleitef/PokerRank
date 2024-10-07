@@ -1,5 +1,6 @@
 import styles from "./sideMenu.module.css";
 import MenuItem from "../../components/MenuItem/menuitem.js";
+import { useRouter } from 'next/router';
 import { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { GiChampions } from "react-icons/gi";
@@ -32,16 +33,16 @@ function SideMenu() {
               </div>
             </div>
             <div className={styles.menu}>
-              <MenuItem text="Home" icon={<FaHome size={22} />} />
-              <MenuItem text="League" icon={<GiChampions size={22} />} />
-              <MenuItem text="Home" icon={<CgPerformance size={22} />} />
-              <MenuItem text="My leagues" icon={<BsGraphUp size={22} />} />
-              <MenuItem text="My Games" icon={<IoTrophySharp size={22} />} />
+              <MenuItem route="/home"text="Home" icon={<FaHome size={22} />} />
+              <MenuItem route="/" text="League" icon={<GiChampions size={22} />} />
+              <MenuItem route="/" text="My Performance" icon={<CgPerformance size={22} />} />
+              <MenuItem route="/" text="My leagues" icon={<BsGraphUp size={22} />} />
+              <MenuItem route="/" text="My Games" icon={<IoTrophySharp size={22} />} />
             </div>
 
             <div className={styles.sideMenuFooter}>
-              <MenuItem text="Settings" icon={<IoMdSettings size={22} />} />
-              <MenuItem text="Logout" icon={<MdOutlineLogout size={22} />} />
+              <MenuItem route="/" text="Settings" icon={<IoMdSettings size={22} />} />
+              <MenuItem route="/" text="Logout" icon={<MdOutlineLogout size={22} />} />
             </div>
           </div>
           <div className={styles.responsiveSideMenu}></div>
@@ -56,16 +57,16 @@ function SideMenu() {
               </div>
             </div>
             <div className={styles.menu}>
-              <MenuItem icon={<FaHome size={22}/>} isCompact={true} />
-              <MenuItem icon={<GiChampions size={22} />} isCompact={true}/>
-              <MenuItem icon={<CgPerformance size={22} />} isCompact={true}/>
-              <MenuItem icon={<BsGraphUp size={22} />} isCompact={true}/>
-              <MenuItem icon={<IoTrophySharp size={22} />} isCompact={true}/>
+              <MenuItem route="/" icon={<FaHome size={22}/>} isCompact={true} />
+              <MenuItem route="/" icon={<GiChampions size={22} />} isCompact={true}/>
+              <MenuItem route="/" icon={<CgPerformance size={22} />} isCompact={true}/>
+              <MenuItem route="/" icon={<BsGraphUp size={22} />} isCompact={true}/>
+              <MenuItem route="/" icon={<IoTrophySharp size={22} />} isCompact={true}/>
             </div>
 
             <div className={styles.sideMenuFooter}>
-              <MenuItem icon={<IoMdSettings size={22} />} isCompact={true}/>
-              <MenuItem icon={<MdOutlineLogout size={22} />} isCompact={true}/>
+              <MenuItem route="/" icon={<IoMdSettings size={22} />} isCompact={true}/>
+              <MenuItem route="/" icon={<MdOutlineLogout size={22} />} isCompact={true}/>
             </div>
           </div>
           <div className={styles.responsiveSideMenu}></div>
