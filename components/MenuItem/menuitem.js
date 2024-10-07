@@ -11,7 +11,7 @@ function MenuItem({ route, text, icon, isCompact }) {
     <>
       {isCompact ? (
         <Link className={styles.link} href={route}>
-          <div className={`${styles.box} ${styles.boxCompact}`}>{icon}</div>
+          <div className={`${styles.box} ${styles.boxCompact} ${isActive(route) ? styles.active : ""}`}>{icon}</div>
         </Link>
       ) : (
         <Link className={styles.link} href={route}>

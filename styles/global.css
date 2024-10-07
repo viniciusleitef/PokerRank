@@ -2,6 +2,8 @@
 
 :root{
   --rose-color: rgb(236, 21, 243);
+  --light-gray: rgb(43,43,43);
+  --dark-gray: rgb(22,22,22);
 }
 
 *{

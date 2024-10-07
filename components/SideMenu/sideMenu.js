@@ -34,7 +34,7 @@ function SideMenu() {
             </div>
             <div className={styles.menu}>
               <MenuItem route="/home"text="Home" icon={<FaHome size={22} />} />
-              <MenuItem route="/" text="League" icon={<GiChampions size={22} />} />
+              <MenuItem route="/league" text="League" icon={<GiChampions size={22} />} />
               <MenuItem route="/" text="My Performance" icon={<CgPerformance size={22} />} />
               <MenuItem route="/" text="My leagues" icon={<BsGraphUp size={22} />} />
               <MenuItem route="/" text="My Games" icon={<IoTrophySharp size={22} />} />
@@ -57,8 +57,8 @@ function SideMenu() {
               </div>
             </div>
             <div className={styles.menu}>
-              <MenuItem route="/" icon={<FaHome size={22}/>} isCompact={true} />
-              <MenuItem route="/" icon={<GiChampions size={22} />} isCompact={true}/>
+              <MenuItem route="/home" icon={<FaHome size={22}/>} isCompact={true} />
+              <MenuItem route="/league" icon={<GiChampions size={22} />} isCompact={true}/>
               <MenuItem route="/" icon={<CgPerformance size={22} />} isCompact={true}/>
               <MenuItem route="/" icon={<BsGraphUp size={22} />} isCompact={true}/>
               <MenuItem route="/" icon={<IoTrophySharp size={22} />} isCompact={true}/>
