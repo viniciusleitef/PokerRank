@@ -11,7 +11,7 @@ import { MdOutlineLogout } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 
 function SideMenu() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,7 +21,7 @@ function SideMenu() {
       {isMenuOpen ? (
         <div>
           <div className={`${styles.sideMenu} ${styles.sideMenuOpen}`}>
-            <FaArrowLeft className={styles.arrowL} size={20} />
+            <FaArrowLeft className={styles.arrowL} size={20} onClick={handleMenuToggle}/>
             <div className={styles.perfil}>
               <div className={styles.imgBox}>
                 <img src="/images/noPerfil.avif" width={40} height={40}></img>
@@ -49,25 +49,23 @@ function SideMenu() {
       ) : (
         <div>
           <div className={`${styles.sideMenu} ${styles.sideMenuClosed}`}>
-            <FaArrowLeft className={styles.arrowR} size={20} />
+            <FaArrowLeft className={styles.arrowR} size={20} onClick={handleMenuToggle}/>
             <div className={styles.perfil}>
-              <div className={styles.imgBox}>
+              <div className={`${styles.imgBox} ${styles.imgBoxCompact}`}>
                 <img src="/images/noPerfil.avif" width={40} height={40}></img>
-                <div className={styles.textBox}>
-                </div>
               </div>
             </div>
             <div className={styles.menu}>
-              <MenuItem icon={<FaHome size={22} isCompact/>} />
-              <MenuItem icon={<GiChampions size={22} isCompact/>} />
-              <MenuItem icon={<CgPerformance size={22} />} />
-              <MenuItem icon={<BsGraphUp size={22} />} />
-              <MenuItem icon={<IoTrophySharp size={22} />} />
+              <MenuItem icon={<FaHome size={22}/>} isCompact={true} />
+              <MenuItem icon={<GiChampions size={22} />} isCompact={true}/>
+              <MenuItem icon={<CgPerformance size={22} />} isCompact={true}/>
+              <MenuItem icon={<BsGraphUp size={22} />} isCompact={true}/>
+              <MenuItem icon={<IoTrophySharp size={22} />} isCompact={true}/>
             </div>
 
             <div className={styles.sideMenuFooter}>
-              <MenuItem icon={<IoMdSettings size={22} />} />
-              <MenuItem icon={<MdOutlineLogout size={22} />} />
+              <MenuItem icon={<IoMdSettings size={22} />} isCompact={true}/>
+              <MenuItem icon={<MdOutlineLogout size={22} />} isCompact={true}/>
             </div>
           </div>
           <div className={styles.responsiveSideMenu}></div>

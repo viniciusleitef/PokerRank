@@ -3,6 +3,7 @@
   height: 100vh;
   background-color: rgb(43, 43, 43);
   padding: 15px 5px;
+  transition: all 200ms;
 }
 
 .sideMenuOpen{
@@ -33,6 +34,15 @@
   cursor: pointer;
   border: 1px solid white;
   border-radius: 50%;
+  transform: rotate(180deg);
+  margin-bottom: 10px;
+}
+
+.arrowL:hover, .arrowR:hover{
+  color: var(--rose-color);
+  border: none;
+  border-top: 1px solid var(--rose-color);
+  transition: all 500ms;
 }
 
 .imgBox {
@@ -46,6 +56,10 @@
   color: white;
   box-shadow: 2px 2px 2px  rgba(255, 255, 255, 0.24);
   border-radius: 10px;
+}
+
+.imgBoxCompact{
+  width: 100%;
 }
 
 .imgBox img {
