@@ -44,7 +44,7 @@
 }
 
 .form input:focus {
-  border-bottom: 1px solid rgb(236, 21, 243);
+  border-bottom: 1px solid var(--rose-color);
 }
 
 .form button {
@@ -57,8 +57,14 @@
   transition: all 400ms;
 }
 
+.form button:focus {
+  outline: none;
+  color: var(--rose-color);
+}
+
+
 .form button:hover {
-  color: rgb(236, 21, 243);
+  color: var(--rose-color);
 }
 
 .form a{
