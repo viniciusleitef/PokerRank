@@ -1,0 +1,140 @@
+.mainContainer {
+  width: 100%;
+  max-width: 1920px;
+  height: calc(100vh - 160px);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(38, 38, 38);
+}
+
+.photoContainer {
+  width: 45%;
+  height: 100%;
+  text-align: center;
+  margin-left: 100px;
+  padding: 60px;
+  background-color: rgb(38, 38, 38);
+  border-radius: 10px;
+  color: white;
+}
+
+.upperSubtitle {
+  margin-top: 15px;
+  margin-bottom: 30px;
+  font-size: 22px;
+}
+
+.photo {
+  width: 475px;
+  height: 475px;
+}
+
+.bottomSubtitle {
+  margin-top: 30px;
+  font-size: 17px;
+}
+
+.signUpContainer {
+  width: 45%;
+  height: 100%;
+  padding: 150px 170px;
+  color: white;
+}
+
+.subtitle {
+  margin-top: 7px;
+  margin-bottom: 25px;
+}
+
+.inputBox {
+  display: block;
+  margin: 12px 0;
+  padding: 10px;
+  width: 300px;
+  border: 1px solid rgb(60, 60, 60);
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: var(--light-gray);
+  color: rgb(210, 210, 210);
+}
+
+.inputBox::placeholder {
+  color: rgb(210, 210, 210);
+}
+
+.joinButton {
+  width: 300px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(60, 60, 60);
+  color: white;
+  padding: 7px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.joinButton:hover,
+.companyButton:hover {
+  opacity: 0.8;
+}
+
+.joinButton:active,
+.companyButton:active {
+  opacity: 0.6;
+}
+
+.altSignUpTextContainer {
+  width: 300px;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 13.5px;
+}
+
+.buttonsContainer {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.companyButton {
+  width: 140px;
+  padding: 7px 0;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 1120px) {
+  .photoContainer {
+    display: none;
+  }
+
+  .signUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 150px 50px;
+  }
+
+  .title, .subtitle {
+    text-align: center;
+  }
+}
+
+@media (max-width: 1010px) {
+  .signUpContainer {
+    padding: 150px 0;
+  }
+}
+
+@media (max-height: 667px) {
+  .inputBox {
+    margin: 5px 0;
+  }
+}

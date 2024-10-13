@@ -52,7 +52,7 @@
   transition: all 800ms;
 }
 
-/*resonsive navbar*/
+/*responsive navbar*/
 
 .responsiveNavIcon{
   display: none;
@@ -103,7 +103,7 @@
   background-color: rgba(236, 21, 243, 0.070);
 }
 
-/*resonsive navbar*/
+/*responsive navbar*/
 
 @media (max-width: 700px){
   .nav{
