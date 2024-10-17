@@ -1,0 +1,88 @@
+.sideMenu {
+  position: relative;
+  height: 100vh;
+  background-color: var(--light-gray);
+  padding: 15px 5px;
+  transition: all 200ms;
+}
+
+.sideMenuOpen{
+  width: 220px;
+}
+
+.sideMenuClosed{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:70px;
+}
+
+.arrowL{
+  position: absolute;
+  top: 30px;
+  right: 3px;
+  padding: 1.5px;
+  color: white;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.arrowR{
+  padding: 1.5px;
+  color: white;
+  cursor: pointer;
+  border: 1px solid white;
+  border-radius: 50%;
+  transform: rotate(180deg);
+  margin-bottom: 10px;
+}
+
+.arrowL:hover, .arrowR:hover{
+  color: var(--rose-color);
+  border: none;
+  border-top: 1px solid var(--rose-color);
+  transition: all 500ms;
+}
+
+.imgBox {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 15px;
+  width: 85%;
+  padding: 5px;
+  display: flex;
+  color: white;
+  box-shadow: 2px 2px 2px  rgba(255, 255, 255, 0.24);
+  border-radius: 10px;
+}
+
+.imgBoxCompact{
+  width: 100%;
+}
+
+.imgBox img {
+  border-radius: 50%;
+}
+
+.textBox p:nth-child(1){
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--rose-color);
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 90%;
+  margin-top: 40px;
+}
+
+.sideMenuFooter {
+  width: 90%;
+  position: absolute;
+  bottom: 15px;
+  border-top: 2px solid rgba(255, 255, 255, 0.24);
+}

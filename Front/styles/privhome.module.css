@@ -1,0 +1,59 @@
+.body{
+  display: flex;
+}
+
+.centerSection{
+  width: 100%;
+  height: 100vh;
+  background-color: var(--dark-gray);
+}
+
+.centerSectionHeader{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 20px;
+  width: 100%;
+  height: 80px;
+  background-color: var(--light-gray);
+  color: white;
+}
+
+.centerSectionContent{
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 80px);
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.itemBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+  width: 95%;
+  height: 96%;
+}
+  
+.cardsBox{
+  width: 100%;
+  height: 100%;
+  background-color: var(--light-gray);
+}
+
+.calendarBox{
+  width: 100%;
+  height: 100%;
+  background-color: var(--light-gray);
+}
+
+
+
+.rightSection{
+  width: 250px;
+  height: 100vh;
+  background-color: var(--light-gray);
+}

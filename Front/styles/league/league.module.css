@@ -1,0 +1,49 @@
+.body{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--dark-gray);
+}
+
+.menubox{
+  width: 100%;
+  height: 100vh;
+  padding: 200px;
+  color: white;
+  font-size: 22px;
+}
+
+.topContentBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  width: 100%;
+  height: 50%;
+}
+
+.leftContentBox{
+  width: 50%;
+  height: 100%;
+}
+
+.rightContentBox{
+  width: 50%;
+  height: 100%;
+}
+
+.bottomContentBox{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 50%;
+  width: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.253);
+  padding: 10px;
+  border-radius: 5px;
+}
