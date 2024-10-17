@@ -1,4 +1,4 @@
-###Run Back-End
+### Run Back-End
 
 - Make sure "python" is installed
 - Make sure you have PostgreSQL installed
@@ -14,7 +14,7 @@
 
 
 
-###Run Front-end
+### Run Front-end
 
 - Make sure "nodejs" and "npm" are installed
 - Create and configure ".env" file inside ./Front
