@@ -2,6 +2,7 @@
 
 - Make sure "python" is installed
 - Make sure you have PostgreSQL installed
+- Create and configure ".env" file inside ./Back
 
 - Configure "SQLALCHEMY_DATABASE_URL" in "database.py" to run the application in your machine
 
