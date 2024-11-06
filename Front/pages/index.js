@@ -2,6 +2,7 @@ import styles from "../styles/home.module.css";
 import Header from "../components/Header/header.js";
 import Footer from "../components/Footer/footer.js";
 import Filter from "../components/Filter/filter.js";
+import Link from "next/link";
 
 function Home() {
   return (
@@ -16,8 +17,12 @@ function Home() {
               your rank, and connect with poker enthusiasts worldwide.
             </p>
             <div className={styles.buttonsbox}>
-              <button>Sign Up</button>
-              <button>Login</button>
+              <Link href="/register">
+                <button>Sign Up</button>
+              </Link>
+              <Link href="/login">
+                <button>Login</button>
+              </Link>
             </div>
           </div>
         </Filter>
