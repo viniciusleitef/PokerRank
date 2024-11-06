@@ -3,6 +3,8 @@ import { FaDice } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import React, { useState } from "react";
+import Link from "next/link";
+
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,9 +20,9 @@ function Header() {
           PokerRank
         </div>
         <nav className={styles.nav}>
-          <a href="/">Home</a>
-          <a href="/about">Sign Up/Login</a>
-          <a href="/contact">LeagueCreation/Tracking</a>
+          <Link href="/">Home</Link>
+          <Link href="/about">Sign Up/Login</Link>
+          <Link href="/contact">LeagueCreation/Tracking</Link>
         </nav>
 
         <div className={styles.responsiveNavIcon} onClick={handleMenuToggle}>
@@ -36,9 +38,9 @@ function Header() {
       </header>
 
       <div className={`${styles.responsiveNav} ${isMenuOpen? styles.responsiveNavActive: styles.responsiveNavNoActive}`}>
-        <a href="/">Home</a>
-        <a href="/about">Sign Up/Login</a>
-        <a href="/contact">LeagueCreation/Tracking</a>
+        <Link href="/">Home</Link>
+        <Link href="/about">Sign Up/Login</Link>
+        <Link href="/contact">LeagueCreation/Tracking</Link>
       </div>
     </div>
   );
