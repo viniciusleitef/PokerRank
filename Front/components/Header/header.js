@@ -33,8 +33,8 @@ function Header() {
         </div>
         <nav className={styles.nav}>
           <Link href="/">Home</Link>
-          <Link href="/about">Sign Up/Login</Link>
-          <Link href="/contact">LeagueCreation/Tracking</Link>
+          <Link href="/login">Login</Link>
+          <Link href="/register">Sign Up</Link>
         </nav>
 
         <div className={styles.responsiveNavIcon} onClick={handleMenuToggle}>
@@ -51,8 +51,8 @@ function Header() {
 
       <div className={`${styles.responsiveNav} ${isMenuOpen? styles.responsiveNavActive: styles.responsiveNavNoActive}`}>
         <Link href="/">Home</Link>
-        <Link href="/about">Sign Up/Login</Link>
-        <Link href="/contact">LeagueCreation/Tracking</Link>
+        <Link href="/login">Login</Link>
+        <Link href="/register">Sign Up</Link>
       </div>
     </div>
   );
