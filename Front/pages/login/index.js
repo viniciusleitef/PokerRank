@@ -13,29 +13,28 @@ function login() {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // ou outra forma de obter o token
+    const token = localStorage.getItem("token");
 
     if (token) {
       // Se o token existir, redireciona para a página inicial
-      router.replace('/home');
+      router.replace("/home");
     } else {
       setLoading(false); // Se não houver token, para de carregar e exibe a página de login
     }
   }, [router]);
 
-
   const handleLogin = async (data) => {
     try {
-      console.log(data)
       const response = await authService.login(data);
 
       localStorage.setItem("token", response.access_token);
 
       router.push("/home");
     } catch (error) {
-      console.error("Login failed:", error);
+      setError(error.message);
     }
   };
 
@@ -71,6 +70,7 @@ function login() {
               />
 
               <button type="submit">Login</button>
+              <div className={styles.errorBox}>{error}</div>
               <a href="#">Forgot Password?</a>
             </form>
           </div>

@@ -82,6 +82,15 @@
   color: rgb(236, 21, 243);
 }
 
+.errorBox{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(201, 0, 0);
+}
+
 @media (max-width: 400px){
   .form input{
     width: unset;

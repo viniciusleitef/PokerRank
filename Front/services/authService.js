@@ -7,7 +7,7 @@ const authService = {
       const response = await axios.post("http://127.0.0.1:8000/login", data);
       return response.data;
     } catch (error) {
-      throw new Error(error.response.data.message);
+      throw new Error(error.response.data.detail);
     }
   },
 
