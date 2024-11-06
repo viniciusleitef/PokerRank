@@ -2,12 +2,24 @@ import styles from "./header.module.css";
 import { FaDice } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 700 ) { // 700px definido no css 
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
