@@ -7,6 +7,9 @@ const authService = {
       const response = await axios.post("http://127.0.0.1:8000/login", data);
       return response.data;
     } catch (error) {
+      if(error.code === "ERR_NETWORK"){
+        throw new Error("Conexão com servidor perdida, tente recarregar a página em alguns estantes");
+      }
       throw new Error(error.response.data.detail);
     }
   },
@@ -16,7 +19,7 @@ const authService = {
       const response = await axios.post(USERS_API_ROUTES.REGISTER, {username, email, password});
       return response.data;
     } catch (error) {
-      throw new Error(error.response.data.message);
+      throw new Error(error.response.data.detail);
     }
   },
 
@@ -25,7 +28,7 @@ const authService = {
       const response = await axios.get(USERS_API_ROUTES.GET_USERS);
       return response.data;
     } catch (error) {
-      throw new Error(error.response.data.message);
+      throw new Error(error.response.data.detail);
     }
   }
 }

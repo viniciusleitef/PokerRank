@@ -34,6 +34,7 @@ function login() {
 
       router.push("/home");
     } catch (error) {
+      console.log(error.message)
       setError(error.message);
     }
   };
