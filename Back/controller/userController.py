@@ -32,7 +32,7 @@ def login(credentials: UserLoginSchema, db: Session):
     if not auth.verify_password(credentials.password, user.password):
         raise HTTPException(status_code=401, detail="Invalid password")
 
-    access_token = auth.create_access_token(data={"sub":user.email})
+    access_token = auth.create_access_token(data={"email":user.email, "username":user.username, "id":user.id, "fullName":user.fullName})
     return {"access_token": access_token}
 
     
@@ -45,6 +45,7 @@ def create_user(user: UserSchema, db: Session):
     hashed_password = auth.hash_password(user.password)
     
     new_user = User(
+        fullName=user.fullName,
         username=user.username, 
         email=user.email,
         password=hashed_password,
