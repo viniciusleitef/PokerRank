@@ -4,8 +4,8 @@ import {USERS_API_ROUTES} from './apiConfig';
 const authService = {
   login: async (data) =>{
     try {
-      const response = await axios.post("http://127.0.0.1:8000/login", data);
-      return response.data;
+      const response = await axios.post(USERS_API_ROUTES.LOGIN, data);
+      return response.data.access_token;
     } catch (error) {
       if(error.code === "ERR_NETWORK"){
         throw new Error("Conexão com servidor perdida, tente recarregar a página em alguns estantes");
@@ -14,9 +14,9 @@ const authService = {
     }
   },
 
-  register: async (username, email, password) => {
+  register: async (data) => {
     try {
-      const response = await axios.post(USERS_API_ROUTES.REGISTER, {username, email, password});
+      const response = await axios.post(USERS_API_ROUTES.REGISTER, data);
       return response.data;
     } catch (error) {
       throw new Error(error.response.data.detail);

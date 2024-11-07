@@ -2,8 +2,8 @@ import Header from "../../components/Header/header.js";
 import Footer from "../../components/Footer/footer.js";
 import Filter from "../../components/Filter/filter.js";
 import styles from "../../styles/register.module.css";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import authService from "../../services/authService.js";
 
 function Register() {
   const {
@@ -14,7 +14,13 @@ function Register() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data); // Aqui você pode manipular os dados, como enviar para uma API ou outro tratamento.
+    try{
+      authService.register(data);
+      alert("Registro realizado com sucesso!");
+      window.location.href = "/login";
+    }catch(e){
+      console.log(e);
+    }
   };
 
   const password = watch("password");

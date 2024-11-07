@@ -8,12 +8,14 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import authService from "../../services/authService.js";
+import { useAuth } from "../../context/AuthContext";
 
 function login() {
   const { register, handleSubmit } = useForm();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { login } = useAuth()
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,7 +33,7 @@ function login() {
       const response = await authService.login(data);
 
       localStorage.setItem("token", response.access_token);
-
+      login(response)
       router.push("/home");
     } catch (error) {
       console.log(error.message)
