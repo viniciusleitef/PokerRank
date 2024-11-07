@@ -27,10 +27,12 @@ function Header() {
   return (
     <div className={styles.headerbox}>
       <header className={styles.header}>
-        <div className={styles.logo}>
-          <FaDice />
-          PokerRank
-        </div>
+        <Link href={'/'} className={styles.nolink}>
+          <div className={styles.logo}>
+            <FaDice />
+            PokerRank
+          </div>
+        </Link>
         <nav className={styles.nav}>
           <Link href="/">Home</Link>
           <Link href="/login">Login</Link>

@@ -3,19 +3,24 @@ import Footer from "../../components/Footer/footer.js";
 import Filter from "../../components/Filter/filter.js";
 
 import styles from "../../styles/login.module.css";
+import Popup from "../../components/Popup/popup.js";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import authService from "../../services/authService.js";
 import { useAuth } from "../../context/AuthContext";
+import { FaInfoCircle } from "react-icons/fa";
+import { MdOutlineSmsFailed } from "react-icons/md";
 
 function login() {
   const { register, handleSubmit } = useForm();
+  const { login } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { login } = useAuth()
+  const [showPopup, setShowPopup] = useState(false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,14 +34,17 @@ function login() {
   }, [router]);
 
   const handleLogin = async (data) => {
+    setShowErrorPopup(false);
     try {
       const response = await authService.login(data);
 
-      localStorage.setItem("token", response.access_token);
-      login(response)
+      setShowPopup(true);
+      localStorage.setItem("token", response);
+      login(response);
       router.push("/home");
     } catch (error) {
-      console.log(error.message)
+      setShowErrorPopup(true);
+      console.log(error.message);
       setError(error.message);
     }
   };
@@ -79,6 +87,28 @@ function login() {
           </div>
         </Filter>
       </div>
+      {showPopup && (
+        <Popup
+          icon={<FaInfoCircle />}
+          text="Login realizado com sucesso!"
+          background="#1cbc0f"
+          color="white"
+          loading={true}
+          time={5000}
+        />
+      )}
+
+      {showErrorPopup && (
+        <Popup
+          icon={<MdOutlineSmsFailed />}
+          text={`Error: ${error}`} 
+          background="#d40321"
+          color="white"
+          loading={false}
+          time={5000}
+        />
+      )}
+
       <Footer />
     </>
   );

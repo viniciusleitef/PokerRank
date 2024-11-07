@@ -1,3 +1,7 @@
+.nolink{
+  text-decoration: none;
+}
+
 .headerbox{
   width: 100%;
   display: flex;

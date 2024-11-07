@@ -10,9 +10,11 @@ import { IoTrophySharp } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext.js";
 
 function SideMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const { user } = useAuth();
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -28,7 +30,7 @@ function SideMenu() {
                 <img src="/images/noPerfil.avif" width={40} height={40}></img>
                 <div className={styles.textBox}>
                   <p>Welcome !</p>
-                  <p>User Name</p>
+                  <p>{user?.username}</p>
                 </div>
               </div>
             </div>
