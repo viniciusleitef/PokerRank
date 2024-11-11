@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect} from "react";
 import jwtDecode from "jwt-decode"; 
 
 // Contexto de autenticação
@@ -7,6 +7,22 @@ export const AuthContext = createContext({});
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null); // Variável para armazenar os dados do usuário
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log("entrei no useeffect")
+    if (token) {
+      try {
+        const decodedUser = jwtDecode(token);
+        console.log("Decodifiquei")
+
+        setIsAuthenticated(true);
+        setUser(decodedUser);
+      } catch (error) {
+        console.error("Erro ao decifrar token:", error);
+      }
+    }
+  }, []);  // Esse useEffect roda uma vez, ao carregar o componente
 
   const login = (token) => {
     try {
