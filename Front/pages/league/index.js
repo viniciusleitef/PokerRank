@@ -11,7 +11,7 @@ function league() {
       <div className={styles.menubox}>
         <div className={styles.topContentBox}>
           <div className={styles.leftContent}>
-            <Link className={styles.link} href={"/league/create"}>Create League</Link>
+            <Link className={styles.link} href={"/league/createLeague"}>Create League</Link>
           </div>
 
           <div className={styles.rightContent}>
