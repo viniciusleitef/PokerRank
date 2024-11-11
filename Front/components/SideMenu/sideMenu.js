@@ -14,11 +14,12 @@ import { useAuth } from "../../context/AuthContext.js";
 
 function SideMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   return (
     <>
       {isMenuOpen ? (
@@ -44,7 +45,7 @@ function SideMenu() {
 
             <div className={styles.sideMenuFooter}>
               <MenuItem route="/" text="Settings" icon={<IoMdSettings size={22} />} />
-              <MenuItem route="/" text="Logout" icon={<MdOutlineLogout size={22} />} />
+              <MenuItem onClick={logout} route="/" text="Logout" icon={<MdOutlineLogout size={22} />} />
             </div>
           </div>
           <div className={styles.responsiveSideMenu}></div>
