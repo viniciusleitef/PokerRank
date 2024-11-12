@@ -4,10 +4,16 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi import HTTPException
 
-from controller import userController
+from controller import leagueParticipantsController, userController
 
 def get_all_leagues(db):
     return db.query(League).all()
+
+def get_league_by_id(league_id: int, db: Session):
+    league = db.query(League).filter(League.id == league_id).first()
+    if not league:
+        raise HTTPException(status_code=404, detail="League not found.")
+    return league
 
 def get_league_by_user_id(user_id: int, db: Session):
     league = db.query(League).filter(League.user_id == user_id).all()

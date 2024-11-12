@@ -15,8 +15,9 @@ class User(Base):
 
     leagues = relationship("League", back_populates="user", cascade="all, delete-orphan")
     rankings = relationship("Ranking", back_populates="user")
-    game_rankings = relationship("GameRanking", back_populates="player")
+    game_rankings = relationship("GameRanking", back_populates="user")
     players_games = relationship("PlayersGame", back_populates="user")
+    league_participants = relationship("LeagueParticipant", back_populates="user")
 
 class League(Base):
     __tablename__ = 'leagues'
@@ -31,6 +32,18 @@ class League(Base):
     user = relationship("User", back_populates="leagues")
     rankings = relationship("Ranking", back_populates="league", uselist=False)  # Apenas 1 ranking por liga
     games = relationship("Game", back_populates="league")
+    league_participants = relationship("LeagueParticipant", back_populates="league")
+
+class LeagueParticipant(Base):
+    __tablename__ = 'league_participants'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    league_id: Mapped[int] = mapped_column(Integer, ForeignKey('leagues.id'))
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
+    created_at: Mapped[str] = mapped_column(Date)
+
+    user = relationship("User", back_populates="league_participants")
+    league = relationship("League", back_populates="league_participants")
 
 class Ranking(Base):
     __tablename__ = 'rankings'
@@ -43,6 +56,8 @@ class Ranking(Base):
     games_won: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     games_lost: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     games_drawn: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    created_at: Mapped[str] = mapped_column(Date)
+    updated_at: Mapped[str] = mapped_column(Date)
 
     user = relationship("User", back_populates="rankings")
     league = relationship("League", back_populates="rankings")
@@ -74,6 +89,7 @@ class PlayersGame(Base):
     game_id: Mapped[int] = mapped_column(Integer, ForeignKey('games.id'))
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
     buyIn: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
+    created_at: Mapped[str] = mapped_column(Date)
 
     game = relationship("Game", back_populates="players_games")
     user = relationship("User", back_populates="players_games")
@@ -88,6 +104,7 @@ class PlayersGameRebuy(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     playersGame_id: Mapped[int] = mapped_column(Integer, ForeignKey('players_games.id'))
     rebuyValue: Mapped[float] = mapped_column(Float, nullable=False)
+    created_at: Mapped[str] = mapped_column(Date)
 
     players_game = relationship("PlayersGame", back_populates="rebuy")
 
@@ -96,11 +113,14 @@ class GameRanking(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     game_id: Mapped[int] = mapped_column(Integer, ForeignKey('games.id'))
-    player_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
     profit: Mapped[float] = mapped_column(Float, nullable=False)
+    created_at: Mapped[str] = mapped_column(Date)
+    updated_at: Mapped[str] = mapped_column(Date)
 
     game = relationship("Game", back_populates="game_rankings")
-    player = relationship("User", back_populates="game_rankings")
+    user = relationship("User", back_populates="game_rankings")
 
     # Garantir que a combinação game_id + player_id seja única
-    __table_args__ = (UniqueConstraint('game_id', 'player_id', name='_game_player_uc'),)
+    __table_args__ = (UniqueConstraint('game_id', 'user_id', name='_game_user_ranking_uc'),)
+    
