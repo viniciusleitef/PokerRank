@@ -23,7 +23,7 @@ class League(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
-    name: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    name: Mapped[str] = mapped_column(String, nullable=False, unique=False)
     description: Mapped[str] = mapped_column(String, nullable=True)
     created_at: Mapped[str] = mapped_column(Date)
     updated_at: Mapped[str] = mapped_column(Date)
@@ -65,6 +65,7 @@ class Game(Base):
 
     league = relationship("League", back_populates="games")
     game_rankings = relationship("GameRanking", back_populates="game")
+    players_games = relationship("PlayersGame", back_populates="game")
 
 class PlayersGame(Base):
     __tablename__ = 'players_games'

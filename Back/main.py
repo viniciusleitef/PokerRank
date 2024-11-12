@@ -4,6 +4,7 @@ from database import SessionLocal, Base, engine
 from models import models
 
 from routes.user_routes import router as user_routes
+from routes.league_routes import router as league_routes
 
 Base.metadata.create_all(bind=engine)
 db = SessionLocal()
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(user_routes)
+app.include_router(league_routes)
 
 
 @app.get("/")
