@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from database import get_db
 from sqlalchemy.orm import Session
 from schemas.PlayersGame import PlayersGameSchema
+from schemas.AddPlayerGame import AddPlayerGameSchema
 
 from controller import playersGameController
 
@@ -14,3 +15,7 @@ def get_players_games(db: Session = Depends(get_db)):
 @router.post("/playersGame")
 def create_players_game(data: PlayersGameSchema, db: Session = Depends(get_db)):
     return playersGameController.create_player_game(data, db)
+
+@router.post("/addPlayerGame")
+def add_player_game(data: AddPlayerGameSchema, db: Session = Depends(get_db)):
+    return playersGameController.add_player_game(data, db)

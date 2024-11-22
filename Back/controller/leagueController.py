@@ -1,4 +1,4 @@
-from models.models import League
+from models.models import League, Game, LeagueParticipant
 from schemas.League import LeagueSchema
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -20,6 +20,12 @@ def get_league_by_user_id(user_id: int, db: Session):
     if not league:
         raise HTTPException(status_code=404, detail="League not found.")
     return league
+
+def get_all_leagues_by_user_id(user_id: int, db: Session):
+    leagues = db.query(League).filter(League.user_id == user_id).all()
+    if not leagues:
+        raise HTTPException(status_code=404, detail="Nenhuma liga criada por este usuário")
+    return leagues
 
 def create_league(league: LeagueSchema, db: Session):
     existing_league = db.query(League).filter(League.name == league.name, League.user_id == league.user_id).first()

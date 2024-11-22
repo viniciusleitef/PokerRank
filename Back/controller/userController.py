@@ -13,6 +13,21 @@ created_at = datetime.now()
 def get_all_users(db: Session):
     return db.query(User).all()
 
+def get_limited_users(limit: int, username: str, db: Session):
+    # Pegar todos os usuarios que parecem com username com um limite de limit users. Not case sensitive
+    users = db.query(User).filter(User.username.ilike(f'%{username.lower()}%')).limit(limit).all()
+    usersArray=[]
+    for user in users:
+        usersArray.append({
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "created_at": user.created_at,
+            "updated_at": user.updated_at,
+            "fullName": user.fullName
+        })
+    return usersArray
+
 def get_user_by_id(user_id: int, db: Session):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:

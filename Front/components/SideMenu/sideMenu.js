@@ -1,6 +1,5 @@
 import styles from "./sideMenu.module.css";
 import MenuItem from "../../components/MenuItem/menuitem.js";
-import { useRouter } from 'next/router';
 import { useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { GiChampions } from "react-icons/gi";

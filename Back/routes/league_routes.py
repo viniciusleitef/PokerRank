@@ -11,6 +11,10 @@ router = APIRouter()
 def get_leagues(db:Session = Depends(get_db)):
     return leagueController.get_all_leagues(db)
 
+@router.get("/leagues/{user_id}")
+def get_all_leagues_by_user_id(user_id: int, db: Session = Depends(get_db)):
+    return leagueController.get_all_leagues_by_user_id(user_id, db)
+
 @router.get("/leagues/{league_id}")
 def get_league_by_user_id(league_id: int, db: Session = Depends(get_db)):
     return leagueController.get_league_by_user_id(league_id, db)

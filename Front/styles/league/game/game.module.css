@@ -1,0 +1,226 @@
+.rose{
+  color: var(--rose-color);
+}
+
+.body {
+  display: flex;
+  background-color: var(--dark-gray);
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.contentBox {
+  display: flex;
+  width: 80%;
+  height: 90%;
+  background-color: var(--light-gray);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.infoBox {
+  height: 100%;
+  width: 50%;
+  padding: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  gap: 10px;
+}
+
+.title {
+  color: white;
+  font-size: 24px;
+}
+
+.tupla {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px 10px 10px;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  font-size: 18px;
+  color: white;
+  border-radius: 5px;
+}
+.tupla span {
+  color: var(--rose-color);
+  font-weight: normal;
+}
+
+.tupla:first-child {
+  border-top: 1px solid black;
+}
+
+.addBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  width: 50%;
+  padding: 10px;
+}
+
+.memberArea {
+  overflow-y: auto;
+  max-height: 50%;
+  border-bottom: 1px solid var(--dark-gray);
+  padding: 10px;
+}
+
+.addMembersBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.memberArea2 {
+  padding: 20px;
+}
+
+.memberArea2 h2{
+  width: 100%;
+  text-align: center;
+  margin: 10px 0 30px 0;
+  color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.memberAreaHeader {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.fields {
+  flex-direction: column;
+}
+
+.fieldHeader {
+  display: flex;
+  gap: 5px;
+}
+
+.fieldResult {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.rebuyListBox {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-height: 100px;
+  overflow-y: auto;
+  color: white;
+}
+
+.rebuyListBox::-webkit-scrollbar {
+  border-radius: 5px; 
+  width: 3px;
+}
+
+.rebuyListBox::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.rebuyListBox::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--rose-color); /* Cor de fundo do polegar */
+}
+
+.rebuyListBox div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.171);
+  border-radius: 6px;
+}
+
+.deleteIcon{
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  transition: 400ms;
+}
+
+.deleteIcon:hover{
+  color: var(--rose-color)
+}
+
+.totalRebuy{
+  font-size: 18px;
+}
+
+.buyInResult {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-height: 100px;
+  color: white;
+}
+
+.inputBox {
+  display: flex;
+  gap: 10px;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  max-height: 200px;
+  color: white;
+}
+
+.inputBox input {
+  width: 50px;
+  background-color: transparent;
+  border: none;
+  padding: 5px 2px;
+  outline: none;
+  color: white;
+  border-bottom: 1px solid var(--rose-color);
+}
+
+.inputBox input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.inputButton {
+  background-color: var(--dark-gray);
+  border: none;
+  padding: 10px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dataError{
+  width: 100%;
+  text-align: center;
+  color: red;
+  margin: 20px 0;
+  font-size: 13px;
+}

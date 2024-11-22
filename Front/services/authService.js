@@ -30,6 +30,15 @@ const authService = {
     } catch (error) {
       throw new Error(error.response.data.detail);
     }
+  },
+
+  getLimitedUsers: async (query, limit = 5) => {
+    try{
+      const response = await axios.get(USERS_API_ROUTES.GET_LIMITED_USERS, {params: {limit, username: query},});
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.detail);
+    }
   }
 }
 

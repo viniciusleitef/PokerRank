@@ -1,0 +1,46 @@
+.body{
+  display: flex;
+  align-items: center;
+  width: 170px;
+  height: 40px;
+}
+
+.memberPhoto{
+  background-color: red;
+  width: 40px;
+  height: 40px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.memberPhoto img{
+  border-radius: 50%;
+}
+
+.memberInfo{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color:  white;
+  margin-left: 5px;
+}
+
+.memberStatus{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: green;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.add{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}

@@ -20,7 +20,7 @@ function league() {
         </div>
 
         <div className={styles.bottomContentBox}>
-          <Link className={styles.link} href={"/league/myleague"}>See my League</Link>
+          <Link className={styles.link} href={"/league/allLeagues"}>See my Leagues</Link>
         </div>
       </div>
     </div>

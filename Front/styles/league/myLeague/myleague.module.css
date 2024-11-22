@@ -1,0 +1,284 @@
+.bold {
+  font-weight: bold;
+}
+
+.nolink {
+  text-decoration: none;
+  color: black;
+}
+
+.body {
+  display: flex;
+  background-color: var(--dark-gray);
+  background-image: radial-gradient(
+    circle at var(--x) var(--y),
+    hsla(298, 90%, 52%, 0.05),
+    hsla(285, 57%, 52%, 0.05),
+    hsla(270, 39%, 43%, 0.05),
+    hsla(258, 26%, 31%, 0.05),
+    hsla(0, 0%, 17%, 0.05)
+  );
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 0 auto;
+  max-width: 1920px;
+  align-items: end;
+  height: 100vh;
+  width: 100%;
+  gap: 20px;
+  padding: 50px;
+}
+
+.topContentBox {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  height: 55vh;
+}
+
+.leftContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+  background-color: rgba(43, 43, 43, 0.7);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.leftContentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftContent h1 {
+  color: white;
+}
+
+.gameSection {
+  flex: 1;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.gameSection::-webkit-scrollbar {
+  height: 5px;
+  border-radius: 20px; /* Bordas arredondadas */
+}
+
+.gameSection::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.gameSection::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--rose-color); /* Cor de fundo do polegar */
+}
+
+.gameBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  cursor: pointer;
+}
+
+.gameInfo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.noGames {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rightContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 550px;
+  width: 30%;
+  height: 100%;
+  padding: 20px;
+  background-color: var(--light-gray);
+  border-radius: 15px;
+
+}
+
+.rightContent h1 {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: var(--h1H);
+  color: white;
+}
+
+.memberSection {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+  height: calc(100% - var(--h1H));  
+  max-height: 346.72px;
+}
+
+.membersInputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+  flex: 1;
+}
+
+.members {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 15px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 15px;
+  scrollbar-gutter: stable;
+}
+
+.members::-webkit-scrollbar {
+  width: 2px;
+  border-radius: 20px; /* Bordas arredondadas */
+}
+
+.members::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.members::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--rose-color); /* Cor de fundo do polegar */
+}
+
+.noMembers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.addMember {
+  background-color: var(--dark-gray);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.membersInput {
+  width: 100%;
+  padding: 8px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid var(--rose-color);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.memberBox {
+  cursor: pointer;
+}
+
+.bottomContentBox {
+  width: 100%;
+  height: 40vh;
+  padding: 20px;
+  background-color: var(--light-gray);
+  border-radius: 15px;
+}
+
+.bottomContentBox h1 {
+  color: white;
+}
+
+.modalBox {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
+.modalBox h1 {
+  color: Black;
+  margin-bottom: 15px;
+}
+
+.modalBox form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalBox input {
+  width: 400px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: transparent;
+  transition: 500ms;
+  padding: 8px;
+  color: black;
+  font-size: 16px;
+}
+
+.modalBox input:hover,
+.modalBox input:focus {
+  border-bottom: 1px solid var(--rose-color);
+}
+
+.error {
+  font-size: 13px;
+  height: 13px;
+  margin: 10px 0;
+  color: red;
+}
+
+.modalBox form button {
+  background-color: var(--dark-gray);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 500ms;
+  outline: none;
+  margin-top: 20px;
+}
+
+.modalBox form button:hover,
+.modalBox form button:focus {
+  background-color: var(--rose-color);
+}

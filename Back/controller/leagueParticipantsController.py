@@ -1,4 +1,4 @@
-from models.models import LeagueParticipant
+from models.models import LeagueParticipant, Game, League, User
 from schemas.LeagueParticipants import LeagueParticipantsSchema
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -6,8 +6,44 @@ from fastapi import HTTPException
 
 from controller import userController, leagueController, userController
 
-def get_all_leagues_participants(db):
+def get_all_participants(db):
     return db.query(LeagueParticipant).all()
+
+def get_all_league_participants(league_id: int, db: Session):
+    existing_league = db.query(League).filter(League.id == league_id).first()
+    participants = db.query(LeagueParticipant).filter(LeagueParticipant.league_id == league_id).all()
+    if not existing_league:
+        raise HTTPException(status_code= 404, detail=  "League not found")
+
+    users = []
+    for i, participant in enumerate(participants):
+        user = userController.get_user_by_id(participant.user_id, db)
+        users.append({
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "created_at": user.created_at,
+            "updated_at": user.updated_at,
+            "fullName": user.fullName
+        })
+    return users
+
+def get_all_league_participants_by_game_id(game_id: int, db: Session):
+    game = db.query(Game).filter(Game.id ==  game_id).first()
+    league_participants = db.query(LeagueParticipant).filter(LeagueParticipant.league_id == game.league_id).all()
+    participants = []
+
+    for participant in league_participants:
+        user = userController.get_user_by_id(participant.user_id, db)
+        participants.append({
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "created_at": user.created_at,
+            "updated_at": user.updated_at,
+            "fullName": user.fullName
+        })
+    return participants
 
 def get_user_in_league_by_id(league_id: int, user_id: int, db: Session):
     user_in_league = db.query(LeagueParticipant).filter(LeagueParticipant.league_id == league_id, LeagueParticipant.user_id == user_id).first()

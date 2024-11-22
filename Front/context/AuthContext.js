@@ -10,11 +10,10 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log("entrei no useeffect")
+
     if (token) {
       try {
         const decodedUser = jwtDecode(token);
-        console.log("Decodifiquei")
 
         setIsAuthenticated(true);
         setUser(decodedUser);

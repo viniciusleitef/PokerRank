@@ -15,18 +15,26 @@ def get_game_by_id(game_id: int, db: Session):
         raise HTTPException(status_code=404, detail="Game not found.")
     return game
 
+def get_games_by_league_id(league_id: int, db: Session):
+    games = db.query(Game).filter(Game.league_id == league_id).all()
+    if not games:
+        return None
+    return games
+
 def create_game(data: GameSchema, db: Session):
     # Verificando se a league existe
     leagueController.get_league_by_id(data.league_id, db)
+    # Verificando se um jogo com o mesmo name ja existe
+    existing_game = db.query(Game).filter(Game.name == data.name).first()
+    if existing_game:
+        raise HTTPException(status_code=400, detail="Game with the same name already exists.")
 
     new_game = Game(
         league_id=data.league_id,
+        name=data.name,
         location=data.location,
         duration=data.duration,
-        buyIns=data.buyIns,
-        rebuys=data.rebuys,
-        totalMoney=data.totalMoney,
-        qntPlayers=data.qntPlayers,
+        gameDate=data.gameDate,
         created_at=datetime.now(),
         updated_at=datetime.now()
     )

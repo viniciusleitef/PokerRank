@@ -1,5 +1,6 @@
 from models.models import PlayersGame
 from schemas.PlayersGame import PlayersGameSchema
+from schemas.AddPlayerGame import AddPlayerGameSchema
 from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi import HTTPException
@@ -44,3 +45,6 @@ def create_player_game(data: PlayersGameSchema, db: Session):
     db.refresh(new_player_game)
 
     return new_player_game
+
+def add_player_game(data: AddPlayerGameSchema, db:Session):
+    return data

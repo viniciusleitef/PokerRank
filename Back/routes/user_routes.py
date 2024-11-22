@@ -12,6 +12,10 @@ router = APIRouter()
 def get_users(db: Session = Depends(get_db)):
     return userController.get_all_users(db)
 
+@router.get("/usersLimited")
+def get_limited_users(limit: int, username: str, db: Session = Depends(get_db)):
+    return userController.get_limited_users(limit, username, db)
+
 @router.get("/user/{user_id}")
 def get_user_by_id(user_id: str, db: Session = Depends(get_db)):
     return userController.get_user_by_id(user_id, db)
