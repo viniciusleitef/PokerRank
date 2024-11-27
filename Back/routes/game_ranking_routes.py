@@ -11,6 +11,10 @@ router = APIRouter()
 def get_games_rank(db: Session = Depends(get_db)):
     return gameRankingController.get_all_games_ranking(db)
 
+@router.get("/gameRanking/{game_id}")
+def get_game_ranking_by_game_id(game_id: int, db: Session = Depends(get_db)):
+    return gameRankingController.get_game_ranking_by_game_id(game_id, db)
+
 @router.post("/gameRanking")
 def create_game_ranking(data: GameRankingSchema, db: Session = Depends(get_db)):
     return gameRankingController.create_game_ranking(data, db)

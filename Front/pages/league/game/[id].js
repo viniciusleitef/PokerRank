@@ -7,6 +7,7 @@ import SideMenu from "../../../components/SideMenu/sideMenu";
 import styles from "../../../styles/league/game/game.module.css";
 import MemberBox from "../../../components/MemberBox/memberBox";
 import { FaDeleteLeft } from "react-icons/fa6";
+import Modal from "../../../components/Modal/modal";
 
 function game() {
   const router = useRouter();
@@ -18,16 +19,21 @@ function game() {
   const [buyInValue, setBuyInValue] = useState(null);
   const [buyinDigited, setBuyinDigited] = useState(null);
   const [rebuyValue, setRebuyValue] = useState(null);
+  const [stackValue, setStackValue] = useState(0);
+  const [stackValueDigited, setStackValueDigited] = useState(0);
   const [rebuyList, setRebuyList] = useState([]);
   const [rebuyTotalValue, setRebuyTotalValue] = useState(null);
   const [totalMoney, setTotalMoney] = useState(null);
   const [dataError, setDataError] = useState(null);
+  const [profit, setProfit] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [gameRanking, setGameRanking] = useState(null);
+  const [fieldSelected, setFieldSelected] = useState(null);
 
   useEffect(() => {
     setPageNotFound(false);
     async function fetchGameData() {
       setGame(await gameService.getGameById(id));
-      return;
     }
 
     async function fetchLeagueMembers() {
@@ -48,6 +54,7 @@ function game() {
     if (id) {
       fetchGameData();
       fetchLeagueMembers();
+      fetchGameRanking();
       return;
     }
 
@@ -55,8 +62,14 @@ function game() {
   }, [id]);
 
   useEffect(() => {
+    setDataError(null);
     setTotalMoney(Number(buyInValue) + Number(rebuyTotalValue));
-  }, [buyInValue, rebuyTotalValue]);
+    setProfit(stackValue - (Number(buyInValue) + Number(rebuyTotalValue)));
+  }, [buyInValue, rebuyTotalValue, stackValue]);
+
+  const fetchGameRanking = async () => {
+    setGameRanking(await gameService.getGameRanking(id));
+  };
 
   const selectMember = (member) => {
     if (selectedMember) {
@@ -69,23 +82,36 @@ function game() {
   };
 
   const addRebuy = () => {
-    if (rebuyValue) {
-      if (rebuyValue < 1 || rebuyValue > 100000) {
-        return;
-      }
+    if (
+      rebuyValue &&
+      /^\d*\.?\d{0,2}$/.test(rebuyValue) &&
+      rebuyValue >= 1 &&
+      rebuyValue <= 100000
+    ) {
       setRebuyList((prevList) => [...prevList, Number(rebuyValue)]);
       setRebuyTotalValue((prevList) => prevList + Number(rebuyValue));
     }
   };
 
   const addBuyin = () => {
-    if (buyinDigited) {
-      if (buyinDigited < 1 || buyinDigited > 100000) {
-        setBuyInValue(null);
-        return;
-      }
-
+    if (
+      buyinDigited &&
+      /^\d*\.?\d{0,2}$/.test(buyinDigited) &&
+      buyinDigited >= 1 &&
+      buyinDigited <= 100000
+    ) {
       setBuyInValue(buyinDigited);
+    }
+  };
+
+  const addStack = () => {
+    if (
+      stackValueDigited &&
+      /^\d*\.?\d{0,2}$/.test(stackValueDigited) &&
+      stackValueDigited >= 0 &&
+      stackValueDigited <= 100000
+    ) {
+      setStackValue(stackValueDigited);
     }
   };
 
@@ -98,14 +124,17 @@ function game() {
 
   const handleRebuyChange = (e) => {
     const value = e.target.value;
-    const numericValue = Number(value);
-
-    setRebuyValue(numericValue);
+    setRebuyValue(Number(value));
   };
 
   const handleBuyInChange = (e) => {
     const value = e.target.value;
-    setBuyinDigited(value);
+    setBuyinDigited(Number(value));
+  };
+
+  const handleStackChange = (e) => {
+    const inputValue = e.target.value;
+    setStackValueDigited(Number(inputValue));
   };
 
   const sendData = async (e) => {
@@ -121,21 +150,67 @@ function game() {
       return;
     }
 
+    if (!stackValue) {
+      setDataError("Escolha o valor do stack");
+      return;
+    }
+
     const data = {
       game_id: Number(id),
       user_id: selectedMember.id,
       rebuy_value_list: rebuyList,
       buy_in_value: Number(buyInValue),
-      totalMoney: Number(totalMoney),
+      totalInvestment: Number(totalMoney),
+      stack: Number(stackValue),
+      profit: Number(profit),
     };
 
     console.log(data);
     try {
       const response = await gameService.addPlayerGame(data);
-      console.log(response)
+      console.log(response);
+
+      setGame(await gameService.getGameById(id));
+      fetchGameRanking();
     } catch (error) {
-      setDataError(error.message)
+      console.log(error);
+      setDataError(error.message);
     }
+  };
+
+  const openRank = () => {
+    console.log(gameRanking);
+    setModalOpen(true);
+  };
+
+  const changeModalState = () => {
+    setModalOpen(false);
+  };
+
+  const handleFilter = (field) => {
+    function sortData(arr, field) {
+      return arr.slice().sort((a, b) => {
+        // Verifica se o campo é numérico ou string
+        const aValue = a[field];
+        const bValue = b[field];
+
+        // Ordena por string (case insensitive)
+        if (typeof aValue === "string" && typeof bValue === "string") {
+          return aValue.toLowerCase().localeCompare(bValue.toLowerCase());
+        }
+
+        // Ordena por número
+        if (typeof aValue === "number" && typeof bValue === "number") {
+          return bValue - aValue; // Decrescente
+        }
+
+        // Caso os dois sejam iguais ou ambos não sejam string ou número
+        return 0;
+      });
+    }
+
+    setGameRanking(sortData(gameRanking, field));
+    setFieldSelected(field);
   };
 
   if (pageNotFound) {
@@ -144,6 +219,93 @@ function game() {
   return (
     <div className={styles.body}>
       <SideMenu />
+      <Modal modalOpen={modalOpen} changeModalState={changeModalState}>
+        <div className={styles.rank}>
+          <table className={styles.styledTable}>
+            <thead>
+              <tr>
+                <th
+                  className={
+                    fieldSelected === "username" ? styles.selectedHeader : null
+                  }
+                  onClick={() => handleFilter("username")}
+                >
+                  Nome do jogador
+                </th>
+                <th
+                  className={
+                    fieldSelected === "stack" ? styles.selectedHeader : null
+                  }
+                  onClick={() => handleFilter("stack")}
+                >
+                  Stack final
+                </th>
+                <th
+                  className={
+                    fieldSelected === "profit" ? styles.selectedHeader : null
+                  }
+                  onClick={() => handleFilter("profit")}
+                >
+                  Lucro/prejuizo
+                </th>
+                <th
+                  className={
+                    fieldSelected === "totalInvestment"
+                      ? styles.selectedHeader
+                      : null
+                  }
+                  onClick={() => handleFilter("totalInvestment")}
+                >
+                  Total Investido
+                </th>
+                <th
+                  className={
+                    fieldSelected === "qnt_rebuy" ? styles.selectedHeader : null
+                  }
+                  onClick={() => handleFilter("qnt_rebuy")}
+                >
+                  Quantidade de Rebuys
+                </th>
+                <th
+                  className={
+                    fieldSelected === "rebuysValue"
+                      ? styles.selectedHeader
+                      : null
+                  }
+                  onClick={() => handleFilter("rebuysValue")}
+                >
+                  Valor Gasto em Rebuys
+                </th>
+                <th
+                  className={
+                    fieldSelected === "buyinValue"
+                      ? styles.selectedHeader
+                      : null
+                  }
+                  onClick={() => handleFilter("buyinValue")}
+                >
+                  Valor do buy-In
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {gameRanking &&
+                gameRanking.map((player) => (
+                  <tr key={player.id}>
+                    <td>{player.username}</td>
+                    <td>{player.stack}</td>
+                    <td>{player.profit}</td>
+                    <td>{player.totalInvestment}</td>
+                    <td>{player.qnt_rebuy}</td>
+                    <td>{player.rebuysValue}</td>
+
+                    <td>{player.buyinValue}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </Modal>
       <div className={styles.main}>
         <div className={styles.contentBox}>
           <div className={styles.infoBox}>
@@ -169,11 +331,20 @@ function game() {
                     Quantidade de dinheiro: <span>{game.totalMoney}</span>
                   </p>
                   <p className={styles.tupla}>
-                    Quantidade de Jogadores<span>{game.qntPlayers}</span>
+                    Quantidade de Jogadores: <span>{game.qntPlayers}</span>
                   </p>
                   <p className={styles.tupla}>
                     Data do Jogo: <span>{game.gameDate}</span>
                   </p>
+                </div>
+
+                <div>
+                  <button
+                    onClick={openRank}
+                    className={`${styles.inputButton} ${styles.rankingButton}`}
+                  >
+                    Ver ranking do Jogo
+                  </button>
                 </div>
               </div>
             )}
@@ -244,6 +415,25 @@ function game() {
                         Adicionar Buyin
                       </button>
                     </div>
+
+                    <div className={styles.inputBox}>
+                      <label>Stack Final:</label>
+                      <input
+                        type="number"
+                        min="1"
+                        max="100000"
+                        step="1"
+                        placeholder="valor"
+                        onChange={(e) => handleStackChange(e)}
+                      />
+                      <button
+                        className={styles.inputButton}
+                        type="button"
+                        onClick={addStack}
+                      >
+                        Adicionar stack
+                      </button>
+                    </div>
                   </div>
                   <div className={styles.fieldResult}>
                     <div className={styles.rebuyListBox}>
@@ -276,19 +466,51 @@ function game() {
                         </p>
                       )}
                     </div>
+
+                    <div className={styles.buyInResult}>
+                      {stackValue > 0 && (
+                        <p>
+                          Stack Total:{" "}
+                          <span className={styles.rose}>{stackValue}</span>
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <h2>
-                  Dinheiro Total:{" "}
-                  <span className={styles.rose}>
-                    {totalMoney && totalMoney}
-                  </span>
-                </h2>
-                <button className={styles.inputButton} type="submit">
-                  Adicionar jogador
-                </button>
+                <div className={styles.results}>
+                  <h2>
+                    Stack Total:{" "}
+                    <span className={styles.rose}>
+                      {stackValue && stackValue}
+                    </span>
+                  </h2>
 
-                <div className={styles.dataError}>{dataError && dataError}</div>
+                  <h2>
+                    Dinheiro Investido:{" "}
+                    <span className={styles.rose}>
+                      {totalMoney && totalMoney}
+                    </span>
+                  </h2>
+
+                  <h2>
+                    Lucro/Prejuízo:{" "}
+                    <span className={styles.rose}>
+                      {profit && totalMoney && stackValue && profit}
+                    </span>
+                  </h2>
+                </div>
+                <div>
+                  <button
+                    className={`${styles.inputButton} ${styles.submitButton}`}
+                    type="submit"
+                  >
+                    Adicionar jogador
+                  </button>
+
+                  <div className={styles.dataError}>
+                    {dataError && dataError}
+                  </div>
+                </div>
               </form>
             </div>
           </div>

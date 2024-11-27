@@ -58,6 +58,21 @@ const gameService = {
       }
       throw new Error(error.response.data.detail);
     }
+  },
+
+  getGameRanking: async(game_id) =>{
+    try{
+      const response = await axios.get(`${GAME_API_ROUTES.GET_GAME_RANKING_BY_GAME_ID}/${game_id}`); 
+      console.log(response.data)
+      return response.data;
+    } catch (error){
+      if (error.code == "ERR_NETWORK"){
+        throw new Error(
+          "Conexão perdida com o servidor. Tente novamente mais tarde"
+        )
+      }
+      throw new Error(error.response.data.detail);
+    }
   }
 };
 
