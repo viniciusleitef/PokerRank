@@ -8,6 +8,7 @@ import styles from "../../../styles/league/game/game.module.css";
 import MemberBox from "../../../components/MemberBox/memberBox";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Modal from "../../../components/Modal/modal";
+import RankingTables from "../../../components/RankingTable/rankingTable";
 
 function game() {
   const router = useRouter();
@@ -28,7 +29,7 @@ function game() {
   const [profit, setProfit] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [gameRanking, setGameRanking] = useState(null);
-  const [fieldSelected, setFieldSelected] = useState(null);
+  const [titleTable, setTitleTable] = useState([]);
 
   useEffect(() => {
     setPageNotFound(false);
@@ -69,6 +70,7 @@ function game() {
 
   const fetchGameRanking = async () => {
     setGameRanking(await gameService.getGameRanking(id));
+    setTitleTable(["username", "stack","profit","totalInvestment", "qnt_rebuy", "rebuysValue", "buyinValue"])
   };
 
   const selectMember = (member) => {
@@ -187,32 +189,6 @@ function game() {
     setModalOpen(false);
   };
 
-  const handleFilter = (field) => {
-    function sortData(arr, field) {
-      return arr.slice().sort((a, b) => {
-        // Verifica se o campo é numérico ou string
-        const aValue = a[field];
-        const bValue = b[field];
-
-        // Ordena por string (case insensitive)
-        if (typeof aValue === "string" && typeof bValue === "string") {
-          return aValue.toLowerCase().localeCompare(bValue.toLowerCase());
-        }
-
-        // Ordena por número
-        if (typeof aValue === "number" && typeof bValue === "number") {
-          return bValue - aValue; // Decrescente
-        }
-
-        // Caso os dois sejam iguais ou ambos não sejam string ou número
-        return 0;
-      });
-    }
-
-    setGameRanking(sortData(gameRanking, field));
-    setFieldSelected(field);
-  };
-
   if (pageNotFound) {
     return <h1>Jogo não encontrado</h1>;
   }
@@ -220,91 +196,7 @@ function game() {
     <div className={styles.body}>
       <SideMenu />
       <Modal modalOpen={modalOpen} changeModalState={changeModalState}>
-        <div className={styles.rank}>
-          <table className={styles.styledTable}>
-            <thead>
-              <tr>
-                <th
-                  className={
-                    fieldSelected === "username" ? styles.selectedHeader : null
-                  }
-                  onClick={() => handleFilter("username")}
-                >
-                  Nome do jogador
-                </th>
-                <th
-                  className={
-                    fieldSelected === "stack" ? styles.selectedHeader : null
-                  }
-                  onClick={() => handleFilter("stack")}
-                >
-                  Stack final
-                </th>
-                <th
-                  className={
-                    fieldSelected === "profit" ? styles.selectedHeader : null
-                  }
-                  onClick={() => handleFilter("profit")}
-                >
-                  Lucro/prejuizo
-                </th>
-                <th
-                  className={
-                    fieldSelected === "totalInvestment"
-                      ? styles.selectedHeader
-                      : null
-                  }
-                  onClick={() => handleFilter("totalInvestment")}
-                >
-                  Total Investido
-                </th>
-                <th
-                  className={
-                    fieldSelected === "qnt_rebuy" ? styles.selectedHeader : null
-                  }
-                  onClick={() => handleFilter("qnt_rebuy")}
-                >
-                  Quantidade de Rebuys
-                </th>
-                <th
-                  className={
-                    fieldSelected === "rebuysValue"
-                      ? styles.selectedHeader
-                      : null
-                  }
-                  onClick={() => handleFilter("rebuysValue")}
-                >
-                  Valor Gasto em Rebuys
-                </th>
-                <th
-                  className={
-                    fieldSelected === "buyinValue"
-                      ? styles.selectedHeader
-                      : null
-                  }
-                  onClick={() => handleFilter("buyinValue")}
-                >
-                  Valor do buy-In
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {gameRanking &&
-                gameRanking.map((player) => (
-                  <tr key={player.id}>
-                    <td>{player.username}</td>
-                    <td>{player.stack}</td>
-                    <td>{player.profit}</td>
-                    <td>{player.totalInvestment}</td>
-                    <td>{player.qnt_rebuy}</td>
-                    <td>{player.rebuysValue}</td>
-
-                    <td>{player.buyinValue}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+        <RankingTables tuplaArray={gameRanking} fieldsArray={titleTable} type="game"/>
       </Modal>
       <div className={styles.main}>
         <div className={styles.contentBox}>

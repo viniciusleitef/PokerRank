@@ -78,6 +78,21 @@ const leagueService = {
       }
       throw new Error(error.response.data.detail);
     }
+  },
+
+  getLeagueRankingByLeagueId: async(league_id) => {
+    try {
+      const response = await axios.get(`${LEAGUE_API_ROUTES.GET_LEAGUE_RANKING_BY_LEAGUE_ID}/${league_id}`)
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      if (error.code === "ERR_NETWORK") {
+        throw new Error(
+          "Conexão com servidor perdida, tente recarregar a página em alguns estantes",
+        );
+      }
+      throw new Error(error.response.data.detail);
+    }
   }
 };
 

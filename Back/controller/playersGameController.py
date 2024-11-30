@@ -2,11 +2,12 @@ from models.models import PlayersGame, GameRanking, PlayersGameRebuy, PlayersGam
 from schemas.PlayersGame import PlayersGameSchema
 from schemas.AddPlayerGame import AddPlayerGameSchema
 from schemas.GameRanking import GameRankingSchema
+from schemas.Ranking import RankingSchema
 from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi import HTTPException
 
-from controller import gameController, leagueParticipantsController, playersGameRebuyController, playersGameBuyinController, gameRankingController
+from controller import gameController, leagueParticipantsController, playersGameRebuyController, playersGameBuyinController, gameRankingController, rankingController
 
 def get_all_players_games(db: Session):
     return db.query(PlayersGame).all()
@@ -102,5 +103,20 @@ def add_player_game(data: AddPlayerGameSchema, db:Session):
 
     #Atualiza a tabela game
     gameController.update_game(new_playerGame, db)
+
+    #Update league Rank
+    game = gameController.get_game_by_id(data.game_id, db)
+
+    leagueRankData = RankingSchema(
+        league_id=game.league_id,
+        user_id=data.user_id,
+        profit=data.profit,
+        games_played=1,
+        games_won=1 if data.profit > 0 else 0,
+        games_lost=1 if data.profit < 0 else 0,
+        games_drawn=1 if data.profit == 0 else 0,
+    )
+
+    rankingController.update_ranking(leagueRankData, db)
 
     return new_playerGame

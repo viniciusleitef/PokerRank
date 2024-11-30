@@ -50,11 +50,11 @@ class Ranking(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     league_id: Mapped[int] = mapped_column(Integer, ForeignKey('leagues.id'))
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
-    profit: Mapped[float] = mapped_column(Float, nullable=False)
-    games_played: Mapped[int] = mapped_column(Integer, nullable=False)
-    games_won: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-    games_lost: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-    games_drawn: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    profit: Mapped[float] = mapped_column(Float, nullable=True)
+    games_played: Mapped[int] = mapped_column(Integer, nullable=True)
+    games_won: Mapped[int] = mapped_column(Integer, nullable=True, default=0)
+    games_lost: Mapped[int] = mapped_column(Integer, nullable=True, default=0)
+    games_drawn: Mapped[int] = mapped_column(Integer, nullable=True, default=0)
     created_at: Mapped[str] = mapped_column(Date)
     updated_at: Mapped[str] = mapped_column(Date)
 
@@ -86,7 +86,7 @@ class PlayersGame(Base):
     __tablename__ = 'players_games'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'), unique=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id'))
     game_id: Mapped[int] = mapped_column(Integer, ForeignKey('games.id'))
     created_at: Mapped[str] = mapped_column(Date)
 

@@ -71,6 +71,9 @@ const gameService = {
           "Conexão perdida com o servidor. Tente novamente mais tarde"
         )
       }
+      if (error.code == "ERR_BAD_REQUEST"){
+        return
+      }
       throw new Error(error.response.data.detail);
     }
   }

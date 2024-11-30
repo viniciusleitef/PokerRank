@@ -14,6 +14,7 @@ export const LEAGUE_API_ROUTES = {
   GET_ALL_LEAGUES_BY_USER_ID: `${BASE_URL}/leagues`,
   GET_ALL_LEAGUE_PARTICIPANTS: `${BASE_URL}/allLeagueParticipants`,
   GET_ALL_LEAGUE_PARTICIPANTS_BY_GAME_ID: `${BASE_URL}/allLeagueParticipantsGameid`,
+  GET_LEAGUE_RANKING_BY_LEAGUE_ID: `${BASE_URL}/Rankings`,
   CREATE_LEAGUE: `${BASE_URL}/leagues`
 }
 

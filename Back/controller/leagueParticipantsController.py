@@ -1,10 +1,11 @@
 from models.models import LeagueParticipant, Game, League, User
 from schemas.LeagueParticipants import LeagueParticipantsSchema
+from schemas.Ranking import RankingSchema
 from sqlalchemy.orm import Session
 from datetime import datetime
 from fastapi import HTTPException
 
-from controller import userController, leagueController, userController
+from controller import userController, leagueController, userController, rankingController
 
 def get_all_participants(db):
     return db.query(LeagueParticipant).all()
@@ -73,5 +74,19 @@ def create_league_participant(data: LeagueParticipantsSchema, db: Session):
     db.add(new_league_participant)
     db.commit()
     db.refresh(new_league_participant)
+
+    #Adding player in Rank
+
+    ranking_data = RankingSchema(
+        league_id=data.league_id,
+        user_id=data.user_id,
+        profit=0,
+        games_played=0,
+        games_won=0,
+        games_lost=0,
+        games_drawn=0,
+    )
+
+    rankingController.create_ranking(ranking_data, db)
 
     return new_league_participant

@@ -11,6 +11,7 @@ import leagueService from "../../services/leagueService.js";
 import authService from "../../services/authService.js";
 import Link from "next/link.js";
 import MemberBox from "../../components/MemberBox/memberBox.js";
+import RankingTables from "../../components/RankingTable/rankingTable.js";
 
 function myLeague() {
   const router = useRouter();
@@ -25,6 +26,8 @@ function myLeague() {
   const [users, setUsers] = useState([]);
   const [members, setMembers] = useState([]);
   const [filteredMembers, setFilteredMembers] = useState([]);
+  const [ranking, setRankings] = useState([]);
+  const [rankingFields, setRankingsFields] = useState([]);
   const {
     register,
     handleSubmit,
@@ -85,6 +88,7 @@ function myLeague() {
       if (id) {
         try {
           const response = await leagueService.getLeagueParticipants(id);
+          fetchRanking()
           console.log(response);
           setMembers(response);
           setFilteredMembers(response);
@@ -98,6 +102,11 @@ function myLeague() {
 
     fetchData();
   }, [id]);
+
+  const fetchRanking = async () =>{
+    setRankings(await leagueService.getLeagueRankingByLeagueId(id))
+    setRankingsFields(["username", "profit", "games_played", "games_won", "games_lost", "games_drawn"])
+  }
 
   const fetchUsers = async (query) => {
     setUsers(await authService.getLimitedUsers(query));
@@ -220,35 +229,34 @@ function myLeague() {
             </div>
             {games ? (
               <div className={styles.gameSection}>
-                {games.map((game) => (
-                  <Link
-                    className={styles.nolink}
-                    href={`/league/game/${game.id}`}
-                    key={game.id}
-                  >
-                    <div className={styles.gameBox}>
-                      <h2>{game.name}</h2>
-                      <div className={styles.gameInfo}>
-                        <p>
-                          <span className={styles.bold}>Local: </span>
-                          {game.location}
-                        </p>
-                        <p>
-                          <span className={styles.bold}>Data: </span>
-                          {game.gameDate}
-                        </p>
-                        <p>
-                          <span className={styles.bold}>Duração:</span>{" "}
-                          {game.duration} horas
-                        </p>
+                <div className={styles.gameSectionTitle}>
+                  <h2>Jogos: </h2>
+                </div>
+
+                <div className={styles.gameBoxBox}>
+                  {games.map((game) => (
+                    <Link
+                      className={styles.nolink}
+                      href={`/league/game/${game.id}`}
+                      key={game.id}
+                    >
+                      <div className={styles.gameBox}>
+                        <h3>{game.name}</h3>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className={styles.noGames}>Nenhum jogo criado</div>
             )}
+
+            <div className={styles.rankingSection}> 
+              <h1>Ranking da liga:</h1>
+              <div className={styles.rankingTable}>
+                <RankingTables tuplaArray={ranking} fieldsArray={rankingFields} type="league"/>
+              </div>
+            </div>
           </div>
           <div className={styles.rightContent}>
             <h1> Membros </h1>
@@ -300,10 +308,6 @@ function myLeague() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className={styles.bottomContentBox}>
-          <h1> Minha Performance </h1>
         </div>
       </div>
     </div>
